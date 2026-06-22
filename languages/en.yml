@@ -16,6 +16,9 @@ btn:
   edit: Edit This Page
   top: Scroll to Top
   comments: Join Discussion
+  batch_approve: Batch Approve
+  batch_delete: Batch Delete
+  refresh: Refresh
 
 meta:
   recent_update: Recent Update
@@ -25,12 +28,44 @@ meta:
   read_next: READ NEXT
   prev: Prev
   next: Next
+  prev_page: Prev Page
+  next_page: Next Page
   older: Older
   newer: Newer
   references: References
   related_posts: Related Posts
   back_to_top: Back to top
   more: More
+  select_all: Select All
+  comment_admin: Comment Admin
+  pending_comments: Pending
+  approved_comments: Approved
+  total_sources: Sources
+  filter_by_source: Filter by Source
+  all_sources: All Sources
+  filter_by_status: Filter by Status
+  pending: Pending
+  approved: Approved
+  all: All
+  sort_by: Sort
+  date_desc: Newest First
+  date_asc: Oldest First
+  no_comments: No Comments
+  approved_badge: Approved
+  pending_badge: Pending
+  page_label: Page
+  unknown_page: Unknown
+  confirm_approve: Approve %s comment(s)?
+  confirm_delete: Delete %s comment(s)? This action can be undone.
+  confirm_delete_single: Delete this comment? This action can be undone.
+  toast_approved: '%s comment(s) approved'
+  toast_deleted: '%s comment(s) deleted'
+  toast_single_approved: Comment approved
+  toast_single_undo: Approval undone
+  toast_single_deleted: Comment deleted
+  title_approve: Approve
+  title_undo: Undo
+  title_delete: Delete
   created_author: '%s posted on'
   created: 'Posted on'
   updated: 'Updated on'

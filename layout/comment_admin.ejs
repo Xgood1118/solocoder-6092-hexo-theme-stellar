@@ -95,9 +95,9 @@ function layoutDiv() {
 
   // 分页
   el += '<div class="pagination-bar" id="paginationBar" style="display:none;">'
-  el += '<button class="btn-page prev" id="prevPage" disabled>' + __('meta.prev') + '</button>'
+  el += '<button class="btn-page prev" id="prevPage" disabled>' + __('meta.prev_page') + '</button>'
   el += '<span class="page-info" id="pageInfo">1 / 1</span>'
-  el += '<button class="btn-page next" id="nextPage">' + __('meta.next') + '</button>'
+  el += '<button class="btn-page next" id="nextPage">' + __('meta.next_page') + '</button>'
   el += '</div>'
 
   el += '</div>'
@@ -112,6 +112,23 @@ function layoutDiv() {
 const commentSources = <%- JSON.stringify(page.comment_sources) %>;
 const commentAdminConfig = {
   pageSize: <%- theme.comments.admin?.page_size || 20 %>,
+};
+const commentAdminI18n = {
+  approved_badge: <%- JSON.stringify(__('meta.approved_badge')) %>,
+  pending_badge: <%- JSON.stringify(__('meta.pending_badge')) %>,
+  page_label: <%- JSON.stringify(__('meta.page_label')) %>,
+  unknown_page: <%- JSON.stringify(__('meta.unknown_page')) %>,
+  confirm_approve: <%- JSON.stringify(__('meta.confirm_approve')) %>,
+  confirm_delete: <%- JSON.stringify(__('meta.confirm_delete')) %>,
+  confirm_delete_single: <%- JSON.stringify(__('meta.confirm_delete_single')) %>,
+  toast_approved: <%- JSON.stringify(__('meta.toast_approved')) %>,
+  toast_deleted: <%- JSON.stringify(__('meta.toast_deleted')) %>,
+  toast_single_approved: <%- JSON.stringify(__('meta.toast_single_approved')) %>,
+  toast_single_undo: <%- JSON.stringify(__('meta.toast_single_undo')) %>,
+  toast_single_deleted: <%- JSON.stringify(__('meta.toast_single_deleted')) %>,
+  title_approve: <%- JSON.stringify(__('meta.title_approve')) %>,
+  title_undo: <%- JSON.stringify(__('meta.title_undo')) %>,
+  title_delete: <%- JSON.stringify(__('meta.title_delete')) %>,
 };
 </script>
 <script src="/js/services/comment_admin.js"></script>

@@ -51,9 +51,6 @@
     </div>
     <div class="widget-body fs14 tag-tree">
       <%= tagAndSub(tagTree.get(''), 0) %>
-      <% for (const child of tagTree.get('').children) { %>
-        <%= tagAndSub(tagTree.get(child), 0) %>
-      <% } %>
     </div>
   </widget>
 <% } %>

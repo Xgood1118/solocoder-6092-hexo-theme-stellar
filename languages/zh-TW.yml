@@ -16,6 +16,9 @@ btn:
   edit: 編輯本文
   top: 回到頂部
   comments: 參與討論
+  batch_approve: 批量通過
+  batch_delete: 批量刪除
+  refresh: 重新整理
 
 meta:
   recent_update: 最近更新
@@ -25,12 +28,44 @@ meta:
   read_next: 接下來閱讀
   prev: 回顧上一篇
   next: 接下來閱讀
+  prev_page: 上一頁
+  next_page: 下一頁
   older: 較早文章
   newer: 較新文章
   references: 參考資料
   related_posts: 您可能感興趣的文章
   back_to_top: 回到頁首
   more: 更多
+  select_all: 全選
+  comment_admin: 評論管理
+  pending_comments: 待審核
+  approved_comments: 已審核
+  total_sources: 評論源
+  filter_by_source: 按來源篩選
+  all_sources: 全部來源
+  filter_by_status: 按狀態篩選
+  pending: 待審核
+  approved: 已審核
+  all: 全部
+  sort_by: 排序
+  date_desc: 最新優先
+  date_asc: 最早優先
+  no_comments: 暫無評論
+  approved_badge: 已通過
+  pending_badge: 待審核
+  page_label: 頁面
+  unknown_page: 未知
+  confirm_approve: 確定通過 %s 條評論嗎？
+  confirm_delete: 確定刪除 %s 條評論嗎？此操作可撤銷。
+  confirm_delete_single: 確定刪除這條評論嗎？此操作可撤銷。
+  toast_approved: 已通過 %s 條評論
+  toast_deleted: 已刪除 %s 條評論
+  toast_single_approved: 評論已通過
+  toast_single_undo: 已撤銷審核
+  toast_single_deleted: 評論已刪除
+  title_approve: 通過
+  title_undo: 撤銷審核
+  title_delete: 刪除
   created_author: 本文由 %s 發布於
   created: 發布於
   updated: 更新於

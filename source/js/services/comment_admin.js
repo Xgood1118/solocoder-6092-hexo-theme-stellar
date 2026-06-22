@@ -5,6 +5,7 @@
 
 utils.jq(() => {
   $(function () {
+    const i18n = commentAdminI18n || {}
     const $panel = $('.comment-admin-panel')
     if (!$panel.length) return
 
@@ -348,7 +349,7 @@ utils.jq(() => {
           content = content.substring(0, 200) + '...'
         }
 
-        const date = new Date(comment.date).toLocaleString('zh-CN', {
+        const date = new Date(comment.date).toLocaleString(undefined, {
           year: 'numeric',
           month: '2-digit',
           day: '2-digit',
@@ -369,17 +370,17 @@ utils.jq(() => {
                 <span class="comment-author">${comment.author || 'Anonymous'}</span>
                 <span class="comment-source" style="background: ${sourceColors[comment.source] || '#999'};">${comment.sourceName}</span>
                 <span class="comment-date">${date}</span>
-                ${approved ? '<span class="comment-status approved-badge">已通过</span>' : '<span class="comment-status pending-badge">待审核</span>'}
+                ${approved ? '<span class="comment-status approved-badge">' + (i18n.approved_badge || '已通过') + '</span>' : '<span class="comment-status pending-badge">' + (i18n.pending_badge || '待审核') + '</span>'}
               </div>
               <div class="comment-body">${content}</div>
               <div class="comment-page">
-                <span class="page-label">页面:</span>
-                <a href="${comment.url || '#'}" target="_blank" rel="noopener">${comment.page_key || comment.url || '未知'}</a>
+                <span class="page-label">${i18n.page_label || '页面'}:</span>
+                <a href="${comment.url || '#'}" target="_blank" rel="noopener">${comment.page_key || comment.url || (i18n.unknown_page || '未知')}</a>
               </div>
             </div>
             <div class="comment-actions">
-              ${!approved ? `<button class="action-btn approve-btn" data-cid="${cid}" title="通过">✓</button>` : `<button class="action-btn undo-btn" data-cid="${cid}" title="撤销审核">↩</button>`}
-              <button class="action-btn delete-btn" data-cid="${cid}" title="删除">✕</button>
+              ${!approved ? `<button class="action-btn approve-btn" data-cid="${cid}" title="${i18n.title_approve || '通过'}">✓</button>` : `<button class="action-btn undo-btn" data-cid="${cid}" title="${i18n.title_undo || '撤销审核'}">↩</button>`}
+              <button class="action-btn delete-btn" data-cid="${cid}" title="${i18n.title_delete || '删除'}">✕</button>
             </div>
           </div>
         `)
@@ -421,12 +422,14 @@ utils.jq(() => {
       const selected = getSelectedIds()
       if (selected.length === 0) return
 
-      if (confirm(`确定通过 ${selected.length} 条评论吗？`)) {
+      const msg = (i18n.confirm_approve || '确定通过 %s 条评论吗？').replace('%s', selected.length)
+      if (confirm(msg)) {
         markAsApproved(selected)
         applyFilters()
         renderComments()
         updateStats()
-        hud.toast(`已通过 ${selected.length} 条评论`, 2000)
+        const toast = (i18n.toast_approved || '已通过 %s 条评论').replace('%s', selected.length)
+        hud.toast(toast, 2000)
       }
     }
 
@@ -434,12 +437,14 @@ utils.jq(() => {
       const selected = getSelectedIds()
       if (selected.length === 0) return
 
-      if (confirm(`确定删除 ${selected.length} 条评论吗？此操作可撤销。`)) {
+      const msg = (i18n.confirm_delete || '确定删除 %s 条评论吗？此操作可撤销。').replace('%s', selected.length)
+      if (confirm(msg)) {
         markAsDeleted(selected)
         applyFilters()
         renderComments()
         updateStats()
-        hud.toast(`已删除 ${selected.length} 条评论`, 2000)
+        const toast = (i18n.toast_deleted || '已删除 %s 条评论').replace('%s', selected.length)
+        hud.toast(toast, 2000)
       }
     }
 
@@ -448,7 +453,7 @@ utils.jq(() => {
       applyFilters()
       renderComments()
       updateStats()
-      hud.toast('评论已通过', 1500)
+      hud.toast(i18n.toast_single_approved || '评论已通过', 1500)
     }
 
     function singleUndo(cid) {
@@ -456,16 +461,16 @@ utils.jq(() => {
       applyFilters()
       renderComments()
       updateStats()
-      hud.toast('已撤销审核', 1500)
+      hud.toast(i18n.toast_single_undo || '已撤销审核', 1500)
     }
 
     function singleDelete(cid) {
-      if (confirm('确定删除这条评论吗？此操作可撤销。')) {
+      if (confirm(i18n.confirm_delete_single || '确定删除这条评论吗？此操作可撤销。')) {
         markAsDeleted([cid])
         applyFilters()
         renderComments()
         updateStats()
-        hud.toast('评论已删除', 1500)
+        hud.toast(i18n.toast_single_deleted || '评论已删除', 1500)
       }
     }
 
