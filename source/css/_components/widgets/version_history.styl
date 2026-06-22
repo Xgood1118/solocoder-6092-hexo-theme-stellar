@@ -1,0 +1,184 @@
+.version-history-widget
+  .widget-header
+    .current-version-badge
+      font-size: $fs-12
+      background: var(--theme)
+      color: white
+      padding: 2px 8px
+      border-radius: 10px
+      font-weight: normal
+
+  .version-list
+    display: flex
+    flex-direction: column
+    gap: 12px
+
+  .version-item
+    background: var(--block)
+    border-radius: $border-card-s
+    padding: 12px
+    transition: all 0.2s ease
+    border: 1px solid transparent
+
+    &:hover
+      border-color: var(--theme)
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08)
+
+  .version-header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 8px
+
+  .version-badge
+    font-weight: 600
+    font-size: $fs-13
+    color: var(--theme)
+    background: var(--theme-a10)
+    padding: 2px 8px
+    border-radius: 4px
+
+  .version-date
+    font-size: $fs-12
+    color: var(--text-p2)
+    opacity: 0.7
+
+  .version-summary
+    font-size: $fs-13
+    color: var(--text-p2)
+    line-height: 1.5
+    margin-bottom: 10px
+    display: -webkit-box
+    -webkit-line-clamp: 2
+    -webkit-box-orient: vertical
+    overflow: hidden
+
+  .version-restore-btn
+    display: inline-block
+    font-size: $fs-12
+    color: var(--accent)
+    text-decoration: none
+    padding: 4px 10px
+    border: 1px solid var(--accent)
+    border-radius: 4px
+    transition: all 0.2s ease
+
+    &:hover
+      background: var(--accent)
+      color: white
+
+  .version-pagination
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-top: 16px
+    padding-top: 12px
+    border-top: 1px solid var(--border)
+
+  .version-page-btn
+    background: var(--block)
+    border: 1px solid var(--border)
+    color: var(--text-p1)
+    padding: 4px 12px
+    border-radius: 4px
+    font-size: $fs-12
+    cursor: pointer
+    transition: all 0.2s ease
+
+    &:hover:not(:disabled)
+      border-color: var(--theme)
+      color: var(--theme)
+
+    &:disabled
+      opacity: 0.4
+      cursor: not-allowed
+
+  .version-page-info
+    font-size: $fs-12
+    color: var(--text-p2)
+
+#version-info
+  .current-version
+    display: flex
+    align-items: center
+    gap: 12px
+    margin-bottom: 16px
+    padding: 12px 16px
+    background: var(--block)
+    border-radius: $border-card-s
+
+    .label
+      font-weight: 500
+      color: var(--text-p2)
+
+    .value
+      font-weight: 600
+      color: var(--theme)
+      font-size: 1.1em
+
+    .update-time
+      color: var(--text-p3)
+      font-size: 0.9em
+      margin-left: auto
+
+  .version-list-footer
+    list-style: none
+    padding: 0
+    margin: 0
+
+    .version-item
+      display: flex
+      flex-direction: column
+      gap: 8px
+      padding: 12px 16px
+      border-radius: $border-card-s
+      margin-bottom: 8px
+      background: var(--block)
+      transition: all 0.2s ease
+
+      &:hover
+        background: var(--block-hover)
+
+    .version-info
+      display: flex
+      align-items: center
+      gap: 12px
+
+    .version-num
+      font-weight: 600
+      color: var(--theme)
+
+    .version-date
+      color: var(--text-p3)
+      font-size: 0.9em
+
+    .version-desc
+      color: var(--text-p2)
+      font-size: 0.95em
+      line-height: 1.5
+
+    .version-restore
+      align-self: flex-start
+      font-size: 0.85em
+      color: var(--accent)
+      text-decoration: none
+      padding: 4px 10px
+      border: 1px solid var(--accent)
+      border-radius: 4px
+      transition: all 0.2s ease
+
+      &:hover
+        background: var(--accent)
+        color: white
+
+    .version-more
+      text-align: center
+      padding: 8px
+
+      a
+        color: var(--theme)
+        text-decoration: none
+        font-size: 0.9em
+
+        &:hover
+          text-decoration: underline

@@ -1,0 +1,117 @@
+<%
+// 评论管理面板
+page.menu_id = page.menu_id || 'post'
+
+function layoutDiv() {
+  var el = ''
+
+  el += '<div class="comment-admin-panel' + scrollreveal(' ') + '">'
+
+  // 头部
+  el += '<div class="admin-header">'
+  el += '<h1 class="admin-title">' + (page.title || __('meta.comment_admin')) + '</h1>'
+  el += '<div class="admin-stats">'
+  el += '<div class="stat-item pending">'
+  el += '<span class="stat-label">' + __('meta.pending_comments') + '</span>'
+  el += '<span class="stat-value" id="pendingCount">-</span>'
+  el += '</div>'
+  el += '<div class="stat-item approved">'
+  el += '<span class="stat-label">' + __('meta.approved_comments') + '</span>'
+  el += '<span class="stat-value" id="approvedCount">-</span>'
+  el += '</div>'
+  el += '<div class="stat-item total">'
+  el += '<span class="stat-label">' + __('meta.total_sources') + '</span>'
+  el += '<span class="stat-value" id="sourceCount">-</span>'
+  el += '</div>'
+  el += '</div>'
+  el += '</div>'
+
+  // 工具栏
+  el += '<div class="admin-toolbar">'
+
+  // 来源筛选
+  el += '<div class="filter-group source-filter">'
+  el += '<label>' + __('meta.filter_by_source') + ':</label>'
+  el += '<select id="sourceFilter" class="form-select">'
+  el += '<option value="all">' + __('meta.all_sources') + '</option>'
+  if (page.comment_sources.artalk) {
+    el += '<option value="artalk">Artalk</option>'
+  }
+  if (page.comment_sources.twikoo) {
+    el += '<option value="twikoo">Twikoo</option>'
+  }
+  if (page.comment_sources.waline) {
+    el += '<option value="waline">Waline</option>'
+  }
+  if (page.comment_sources.giscus) {
+    el += '<option value="giscus">Giscus</option>'
+  }
+  el += '</select>'
+  el += '</div>'
+
+  // 状态筛选
+  el += '<div class="filter-group status-filter">'
+  el += '<label>' + __('meta.filter_by_status') + ':</label>'
+  el += '<select id="statusFilter" class="form-select">'
+  el += '<option value="pending">' + __('meta.pending') + '</option>'
+  el += '<option value="approved">' + __('meta.approved') + '</option>'
+  el += '<option value="all">' + __('meta.all') + '</option>'
+  el += '</select>'
+  el += '</div>'
+
+  // 排序
+  el += '<div class="filter-group sort-filter">'
+  el += '<label>' + __('meta.sort_by') + ':</label>'
+  el += '<select id="sortFilter" class="form-select">'
+  el += '<option value="date_desc">' + __('meta.date_desc') + '</option>'
+  el += '<option value="date_asc">' + __('meta.date_asc') + '</option>'
+  el += '</select>'
+  el += '</div>'
+
+  // 批量操作
+  el += '<div class="batch-actions">'
+  el += '<label class="select-all">'
+  el += '<input type="checkbox" id="selectAll" /> '
+  el += __('meta.select_all')
+  el += '</label>'
+  el += '<button class="btn btn-approve" id="batchApproveBtn" disabled>' + __('btn.batch_approve') + '</button>'
+  el += '<button class="btn btn-delete" id="batchDeleteBtn" disabled>' + __('btn.batch_delete') + '</button>'
+  el += '<button class="btn btn-refresh" id="refreshBtn">' + __('btn.refresh') + '</button>'
+  el += '</div>'
+
+  el += '</div>'
+
+  // 评论列表
+  el += '<div class="comment-list-container">'
+  el += '<div class="loading-state" id="loadingState">'
+  el += '<img src="' + theme.default.loading + '" alt="loading" />'
+  el += '<p>' + __('message.loading') + '</p>'
+  el += '</div>'
+  el += '<div class="comment-list" id="commentList"></div>'
+  el += '<div class="empty-state" id="emptyState" style="display:none;">'
+  el += '<p>' + __('meta.no_comments') + '</p>'
+  el += '</div>'
+  el += '</div>'
+
+  // 分页
+  el += '<div class="pagination-bar" id="paginationBar" style="display:none;">'
+  el += '<button class="btn-page prev" id="prevPage" disabled>' + __('meta.prev') + '</button>'
+  el += '<span class="page-info" id="pageInfo">1 / 1</span>'
+  el += '<button class="btn-page next" id="nextPage">' + __('meta.next') + '</button>'
+  el += '</div>'
+
+  el += '</div>'
+
+  return el
+}
+%>
+
+<%- layoutDiv() %>
+
+<script>
+const commentSources = <%- JSON.stringify(page.comment_sources) %>;
+const commentAdminConfig = {
+  pageSize: <%- theme.comments.admin?.page_size || 20 %>,
+};
+</script>
+<script src="/js/services/comment_admin.js"></script>

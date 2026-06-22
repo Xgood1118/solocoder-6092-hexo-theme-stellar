@@ -1,0 +1,149 @@
+.tag-tree-widget
+  position: relative
+
+  .tag-tree-actions
+    display: flex
+    align-items: center
+    gap: 8px
+
+  .tag-edit-mode-btn
+    background: none
+    border: none
+    color: var(--text-p2)
+    cursor: pointer
+    padding: 4px
+    border-radius: 4px
+    display: flex
+    align-items: center
+    justify-content: center
+    transition: all 0.2s ease
+
+    &:hover
+      color: var(--theme)
+      background: var(--bg-a100)
+
+  .tag-color-dot
+    display: inline-block
+    width: 8px
+    height: 8px
+    border-radius: 50%
+    margin-right: 6px
+    vertical-align: middle
+    flex-shrink: 0
+
+  .link
+    --tag-color: var(--theme)
+    position: relative
+
+    &.active
+      border-left-color: var(--tag-color)
+
+  .tag-count
+    display: inline-block
+    margin-left: auto
+    font-size: $fs-12
+    color: var(--text-p3)
+    background: var(--bg-a50)
+    padding: 1px 6px
+    border-radius: 10px
+    font-weight: normal
+
+  .tag-edit-btn
+    display: none
+    margin-right: 4px
+    cursor: pointer
+    color: var(--text-p3)
+    transition: color 0.2s ease
+
+    &:hover
+      color: var(--theme)
+
+  &.edit-mode .tag-edit-btn
+    display: inline-flex
+    align-items: center
+
+  .tag-subtree
+    position: relative
+    transition: all 0.2s ease
+
+    &.drag-over-before::before
+      content: ''
+      position: absolute
+      top: -2px
+      left: 8px
+      right: 8px
+      height: 2px
+      background: var(--theme)
+      border-radius: 1px
+      z-index: 10
+
+    &.drag-over-after::after
+      content: ''
+      position: absolute
+      bottom: -2px
+      left: 8px
+      right: 8px
+      height: 2px
+      background: var(--theme)
+      border-radius: 1px
+      z-index: 10
+
+  .link.dragging
+    opacity: 0.5
+
+  .link.drag-ghost
+    opacity: 0.3
+
+.tag-color-picker
+  position: absolute
+  z-index: 1000
+  background: var(--card)
+  border: 1px solid var(--border)
+  border-radius: $border-card-s
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15)
+  padding: 12px
+  min-width: 200px
+
+  .color-picker-header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 10px
+    font-size: $fs-13
+    font-weight: 500
+    color: var(--text-p1)
+
+  .color-picker-close
+    background: none
+    border: none
+    font-size: 18px
+    cursor: pointer
+    color: var(--text-p3)
+    padding: 0 4px
+    line-height: 1
+
+    &:hover
+      color: var(--text-p1)
+
+  .color-picker-colors
+    display: flex
+    flex-wrap: wrap
+    gap: 8px
+
+  .color-option
+    width: 24px
+    height: 24px
+    border-radius: 50%
+    cursor: pointer
+    border: 2px solid transparent
+    transition: all 0.2s ease
+    display: flex
+    align-items: center
+    justify-content: center
+    color: white
+    font-size: 14px
+    font-weight: bold
+
+    &:hover
+      transform: scale(1.15)
+      border-color: var(--text-p2)

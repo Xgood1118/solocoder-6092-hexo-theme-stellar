@@ -1,0 +1,143 @@
+<%
+const proj = theme.wiki.tree[page.wiki]
+const currentPage = proj?.pages?.find(p => p.path === page.path)
+const versions = currentPage?.versions || []
+const perPage = item.per_page || 10
+const totalPages = Math.max(1, Math.ceil(versions.length / perPage))
+
+function formatDate(dateStr) {
+  if (!dateStr) return ''
+  const d = new Date(dateStr)
+  return d.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' })
+}
+
+function layoutVersionItem(ver, index) {
+  var el = ''
+  el += '<div class="version-item" data-version="' + (ver.version || index) + '">'
+  el += '<div class="version-header">'
+  el += '<span class="version-badge">' + (ver.version || 'v' + (versions.length - index)) + '</span>'
+  el += '<span class="version-date">' + formatDate(ver.date) + '</span>'
+  el += '</div>'
+  if (ver.summary || ver.content) {
+    el += '<div class="version-summary">' + (ver.summary || ver.content.substring(0, 50)) + '</div>'
+  }
+  if (ver.path || ver.url) {
+    el += '<a class="version-restore-btn" href="' + (ver.path ? pretty_url(ver.path) : ver.url) + '">'
+    el += __('btn.restore_version')
+    el += '</a>'
+  }
+  el += '</div>'
+  return el
+}
+
+function layoutVersionList() {
+  var el = ''
+  el += '<div class="version-list" data-page="1" data-total="' + totalPages + '">'
+  var displayCount = Math.min(perPage, versions.length)
+  for (var i = 0; i < displayCount; i++) {
+    el += layoutVersionItem(versions[i], i)
+  }
+  el += '</div>'
+  return el
+}
+
+function layoutPagination() {
+  if (totalPages <= 1) return ''
+  var el = ''
+  el += '<div class="version-pagination">'
+  el += '<button class="version-page-btn prev" disabled>' + __('meta.prev_version') + '</button>'
+  el += '<span class="version-page-info">1 / ' + totalPages + '</span>'
+  el += '<button class="version-page-btn next" ' + (totalPages <= 1 ? 'disabled' : '') + '>' + __('meta.next_version') + '</button>'
+  el += '</div>'
+  return el
+}
+
+function layoutDiv() {
+  if (!proj || !currentPage || versions.length === 0) {
+    return ''
+  }
+  var el = ''
+  el += '<widget class="widget-wrapper version-history-widget post-list' + scrollreveal(' ') + '">'
+  el += '<div class="widget-header dis-select">'
+  el += '<span class="name">' + __('meta.version_history') + '</span>'
+  if (currentPage.version) {
+    el += '<span class="current-version-badge">' + currentPage.version + '</span>'
+  }
+  el += '</div>'
+  el += '<div class="widget-body fs14">'
+  el += layoutVersionList()
+  el += layoutPagination()
+  el += '</div>'
+  el += '</widget>'
+  return el
+}
+%>
+
+<%- layoutDiv() %>
+
+<% if (versions.length > perPage) { %>
+<script>
+utils.jq(() => {
+  $(function () {
+    const $widget = $('.version-history-widget')
+    if (!$widget.length) return
+
+    const versions = <%- JSON.stringify(versions) %>
+    const perPage = <%- perPage %>
+    const totalPages = <%- totalPages %>
+    let currentPage = 1
+
+    function formatDate(dateStr) {
+      if (!dateStr) return ''
+      const d = new Date(dateStr)
+      return d.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' })
+    }
+
+    function renderPage(page) {
+      const start = (page - 1) * perPage
+      const end = start + perPage
+      const pageVersions = versions.slice(start, end)
+
+      let html = ''
+      pageVersions.forEach((ver, i) => {
+        const idx = start + i
+        html += '<div class="version-item" data-version="' + (ver.version || idx) + '">'
+        html += '<div class="version-header">'
+        html += '<span class="version-badge">' + (ver.version || 'v' + (versions.length - idx)) + '</span>'
+        html += '<span class="version-date">' + formatDate(ver.date) + '</span>'
+        html += '</div>'
+        if (ver.summary || ver.content) {
+          html += '<div class="version-summary">' + (ver.summary || (ver.content || '').substring(0, 50)) + '</div>'
+        }
+        if (ver.path || ver.url) {
+          html += '<a class="version-restore-btn" href="' + (ver.path || ver.url) + '">'
+          html += '<%- __('btn.restore_version') %>'
+          html += '</a>'
+        }
+        html += '</div>'
+      })
+
+      $widget.find('.version-list').html(html)
+      $widget.find('.version-list').attr('data-page', page)
+      $widget.find('.version-page-info').text(page + ' / ' + totalPages)
+      $widget.find('.version-page-btn.prev').prop('disabled', page === 1)
+      $widget.find('.version-page-btn.next').prop('disabled', page === totalPages)
+    }
+
+    $widget.find('.version-page-btn.prev').on('click', function () {
+      if (currentPage > 1) {
+        currentPage--
+        renderPage(currentPage)
+      }
+    })
+
+    $widget.find('.version-page-btn.next').on('click', function () {
+      if (currentPage < totalPages) {
+        currentPage++
+        renderPage(currentPage)
+      }
+    })
+  })
+})
+</script>
+<% } %>
